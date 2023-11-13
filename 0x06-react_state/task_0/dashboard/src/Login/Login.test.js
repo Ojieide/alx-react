@@ -1,27 +1,27 @@
-/**
- * @jest-environment jsdom
- */
-
-import React from "react";
-import { shallow } from "enzyme";
-import Login from "./Login";
+import React from 'react';
 import { StyleSheetTestUtils } from 'aphrodite';
+import Login from './Login';
+import { shallow } from 'enzyme';
 
-StyleSheetTestUtils.suppressStyleInjection();
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
 
-describe("<Login />", () => {
-    it("Login renders without any errors", () => {
-      const wrapper = shallow(<Login />);
-      expect(wrapper.exists()).toEqual(true);
-    });
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
-    it("VVerify that the components renders 2 input tags", () => {
-      const wrapper = shallow(<Login />);
-      expect(wrapper.find("div.body-login input")).toHaveLength(2);
-    });
+describe('rendering components', () => {
+  it('renders Login component without crashing', () => {
+    const wrapper = shallow(<Login />);
 
-    it("Verify that the components renders 2 label tags", () => {
-      const wrapper = shallow(<Login />);
-      expect(wrapper.find("div.body-login label")).toHaveLength(2);
-    });
-})
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it('Login component renders 2 <input> and 2 <label> tags', () => {
+    const wrapper = shallow(<Login />);
+
+    expect(wrapper.find('label')).toHaveLength(2);
+    expect(wrapper.find('input')).toHaveLength(2);
+  });
+});

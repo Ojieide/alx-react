@@ -1,27 +1,27 @@
-/**
- * @jest-environment jsdom
- */
-
-import React from "react";
-import { shallow } from "enzyme";
-import Header from "./Header";
+import React from 'react';
 import { StyleSheetTestUtils } from 'aphrodite';
+import Header from './Header';
+import { shallow } from 'enzyme';
 
-StyleSheetTestUtils.suppressStyleInjection();
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
 
-describe("<Header />", () => {
-  it("Header renders without any errors", () => {
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
+
+describe('rendering components', () => {
+  it('renders Header component without crashing', () => {
     const wrapper = shallow(<Header />);
-    expect(wrapper.exists()).toEqual(true);
+
+    expect(wrapper.exists()).toBe(true);
   });
 
-  it("Verify that the components render img", () => {
+  it('Header renders img and h1 tags', () => {
     const wrapper = shallow(<Header />);
-    expect(wrapper.find("header img")).toHaveLength(1);
-  });
 
-  it("Verify that the components render h1 tag", () => {
-    const wrapper = shallow(<Header />);
-    expect(wrapper.find("header h1")).toHaveLength(1);
-  });
-})
+    expect(wrapper.exists('img')).toBe(true);
+    expect(wrapper.exists('h1')).toBe(true);
+  })
+});
